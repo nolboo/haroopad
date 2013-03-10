@@ -39,10 +39,11 @@ requirejs.onError = function (e) {
 
 requirejs([
     'window/Window',
+    'login/Login',
     'editor',
     'parser',
     'viewer'
-  ], function(Window, Editor, Parser, Viewer) {
+  ], function(Window, Login, Editor, Parser, Viewer) {
 
     var res;
     var _tid_;
@@ -69,6 +70,5 @@ requirejs([
 
     // Editor.on("change", changeHandler);
     Editor.on("change", delayChange);
-
 
 });

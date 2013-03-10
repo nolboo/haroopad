@@ -74,7 +74,7 @@ define([
 
 		HotKey('defmod-n', newHandler);
 
-		HotKey('defmod-shift-ctrl-d', function() {
+		HotKey('defmod-shift-ctrl-r h i o', function() {
 			win.showDevTools();
 		});
 
