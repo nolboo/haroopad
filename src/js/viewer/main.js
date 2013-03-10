@@ -66,3 +66,13 @@ function scrollTop(per) {
 
   $(window).scrollTop(top / 100 * per);
 }
+
+/**
+ * keydown event delegate to parent window
+ * @param  {[type]} e)    {             $(window.parent.window).trigger('keydown' [description]
+ * @param  {[type]} e);} [description]
+ * @return {[type]}       [description]
+ */
+$(window).keydown(function(e) {
+  $(window.parent.window).trigger('keydown', e);
+})

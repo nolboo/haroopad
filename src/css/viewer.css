@@ -1,7 +1,10 @@
+html {
+  height: 100%;
+}
 body {
 	padding: 30px;
 }
-
+/*
 code {
   margin: 0 2px;
   padding: 0 5px;
@@ -11,7 +14,7 @@ pre>code {
 	word-break: break-all;
 	word-wrap: break-word;
   margin: 0;
-}
+}*/
 
 /* -----------------------------------------
    table of contents
