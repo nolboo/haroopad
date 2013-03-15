@@ -3,8 +3,73 @@
 <head>
   <meta charset="utf-8" />
   <title>login</title>
+  <script src="js/vendors/jquery-1.9.1.min.js"></script>
+  <script>
+  	function oauth() {
+  		var request = require('request');
+  		// Twitter OAuth
+			var qs = require('querystring')
+			  , oauth =
+			    { callback: 'oob'
+			    , consumer_key: "fP70dzvDVYa7OL8dK3bbQ"
+			    , consumer_secret: "7hTnvKWOBZ6wj4HfwnGIhlcQhxWbU9hh6Z1zVpFKWs"
+			    }
+			  , url = 'https://api.twitter.com/oauth/request_token'
+			  ;
+
+			request.post({url:url, oauth:oauth}, function (e, r, body) {
+			  // Ideally, you would take the body in the response
+			  // and construct a URL that a user clicks on (like a sign in button).
+			  // The verifier is only available in the response after a user has 
+			  // verified with twitter that they are authorizing your app.
+
+			  var access_token = qs.parse(body);
+
+		    request.post({
+		    	url: 'https://api.twitter.com/1/account/verify_credentials.json',
+		    	oauth_access_token: access_token.oauth_token_secret
+		    }, function (e, r, body) {
+		    	console.log(body)
+		    });
+			  // var access_token = qs.parse(body)
+			  //   , oauth = 
+			  //     { consumer_key: "fP70dzvDVYa7OL8dK3bbQ"
+			  //     , consumer_secret: "7hTnvKWOBZ6wj4HfwnGIhlcQhxWbU9hh6Z1zVpFKWs"
+			  //     , token: access_token.oauth_token
+			  //     , verifier: access_token.oauth_verifier
+			  //     }
+			  //   , url = 'https://api.twitter.com/oauth/access_token'
+			  //   ;
+			  //   console.log(body, oauth)
+			  // request.post({url:url, oauth:oauth}, function (e, r, body) {
+			  //   var perm_token = qs.parse(body)
+			  //     , oauth = 
+			  //       { consumer_key: "fP70dzvDVYa7OL8dK3bbQ"
+			  //       , consumer_secret: "7hTnvKWOBZ6wj4HfwnGIhlcQhxWbU9hh6Z1zVpFKWs"
+			  //       , token: perm_token.oauth_token
+			  //       , token_secret: perm_token.oauth_token_secret
+			  //       }
+			  //     , url = 'https://api.twitter.com/1/users/show.json?'
+			  //     , params = 
+			  //       { screen_name: perm_token.screen_name
+			  //       , user_id: perm_token.user_id
+			  //       }
+			  //     ;
+			  //   console.log(body, oauth)
+			  //   url += qs.stringify(params)
+			  //   request.get({url:url, oauth:oauth, json:true}, function (e, r, user) {
+			  //     console.log(user)
+			  //   })
+			  // })
+			})
+  	}
+
+  	$(document).ready(function() {
+  		$('#oauth').click(oauth);
+  	});
+  </script>
 </head>
 <body>
-	<a href="/auth/twitter">Sign in with Twitter</a>
+	<a href="#" id="oauth">Sign in with Twitter</a>
 </body>
 </html>

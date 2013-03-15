@@ -140,7 +140,8 @@ module.exports = function(grunt) {
           { src: 'src/login.html', dest: 'build/haroopad.app/Contents/Resources/app.nw/login.html' },
           { src: 'src/package.json', dest: 'build/haroopad.app/Contents/Resources/app.nw/package.json' },
           { src: 'src/css/keys.css', dest: 'build/haroopad.app/Contents/Resources/app.nw/css/keys.css' },
-          { src: 'src/css/select2.png', dest: 'build/haroopad.app/Contents/Resources/app.nw/css/select2.png' }
+          { src: 'src/css/select2.png', dest: 'build/haroopad.app/Contents/Resources/app.nw/css/select2.png' },
+          { src: 'lib/haroopad.icns', dest: 'build/haroopad.app/Contents/Resources/nw.icns' }
         ]
       }
     },
