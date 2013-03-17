@@ -28,3 +28,6 @@ haroopad technical stack
 ## technical specification
 * less
 * package.json
+* twitter OAuth
+	- Out of band 
+	- [https://dev.twitter.com/discussions/734](https://dev.twitter.com/discussions/734)
