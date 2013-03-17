@@ -1,19 +1,34 @@
 define([
+		'vendors/text!tpl/twitter-oauth.html',
 		'keyboard'
 	], 
-	function(HotKey) {
+	function(html, HotKey) {
 
-    var gui = require('nw.gui'),
-    		win = gui.Window.get(),
-    		login;
+		$('#fields').append(html);
 
-    HotKey('defmod-ctrl-shift-l', function() {
-			login = gui.Window.open('login.html', {
-				width: 400,
-				height: 400,
-				x: win.x - 400,
-				y: win.y,
-			  toolbar: true
-			});
-    });
+		var View = Backbone.View.extend({
+			el: '#fields',
+
+			events: {
+			},
+
+			initialize: function() {
+    		HotKey('defmod-ctrl-shift-l', function() {});
+			}
+		}
+
+   //  var gui = require('nw.gui'),
+   //  		win = gui.Window.get(),
+   //  		login;
+
+   //  HotKey('defmod-ctrl-shift-l', function() {
+
+			// login = gui.Window.open('login.html', {
+			// 	width: 400,
+			// 	height: 400,
+			// 	x: win.x - 400,
+			// 	y: win.y,
+			//   toolbar: true
+			// });
+   //  });
 });

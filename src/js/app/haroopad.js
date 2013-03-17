@@ -39,11 +39,10 @@ requirejs.onError = function (e) {
 
 requirejs([
     'window/Window',
-    'login/Login',
     'editor/Editor',
     'parser',
     'viewer'
-  ], function(Window, Login, Editor, Parser, Viewer) {
+  ], function(Window, Editor, Parser, Viewer) {
 
     var res;
     var _tid_;

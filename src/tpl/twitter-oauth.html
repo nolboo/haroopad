@@ -1,0 +1,23 @@
+<div id="twitter-oauth-dialog" class="modal hide fade" data-width="400">
+  <!-- <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Modal header</h3>
+  </div> -->
+  <div class="modal-body">
+    <p><strong class="text-error">Step1: </strong></p>
+    <button id="request_token" class="btn btn-large btn-block btn-primary" type="button">Get Credential <span class="hide">(Greate! Go to Step2)</span></button>
+    <hr>
+    <p><strong class="muted">Step2: </strong></p>
+    <button id="get_pincode" class="btn btn-large btn-block btn-primary disabled" type="button">Create Pin Code <span class="hide">(Copy & Paste to Step3)</span></button>
+    <hr>
+    <p><strong class="muted">Step3</strong></p>
+    <div class="input-append">
+      <input id="pincode" class="span4" type="text" placeholder="Insert your PIN CODE of haroopad" disabled>
+      <button id="get_cridential" class="btn btn-primary disabled" type="button">Go!</button>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn _cancel">Cancel</a>
+    <a href="#" class="btn btn-primary _save disabled">Save</a>
+  </div>
+</div>
