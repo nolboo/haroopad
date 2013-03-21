@@ -1,14 +1,10 @@
 define([
 		'vendors/text!tpl/twitter-oauth.html',
 		'keyboard',
-		'dialog/Login.background'
+		'dialog/Login.twitter'
 	], 
-	function(html, HotKey, oAuth) {
+	function(html, HotKey, twitter) {
 		$('#dialogs').append(html);
-
-    var gui = require('nw.gui'),
-    		win = gui.Window.get(),
-    		login;
 
 		var View = Backbone.View.extend({
 			el: '#twitter-oauth-dialog',
@@ -16,9 +12,7 @@ define([
 			events: {
 				'click ._save': 'saveHandler',
 				'click ._cancel': 'cancelHandler',
-				'click #request_token': 'getRequestToken',
-				'click #get_pincode': 'openAuthorize',
-				'click #get_cridential': 'getCridential'
+				'click #request_token': 'getRequestToken'
 			},
 
 			initialize: function() {
@@ -27,50 +21,29 @@ define([
 				HotKey('defmod-ctrl-shift-l', this.show.bind(this));
 
 				if(!opt) {
-					oAuth.bind('change:oauth_token', this.completeRequest, this);
-					oAuth.bind('success_permission', this.completeAccessCredential, this);	
+					twitter.bind('twitter_success', this.onSuccess, this);	
+					twitter.bind('twitter_verified', this.onVerified, this);	
+					twitter.bind('twitter_authorized', this.onAuthorized, this);	
 				}
 			},
 
 			getRequestToken: function() {
-				oAuth.getRequestToken();
+				twitter.login();
 			},
 
-			completeRequest: function() {
-				$('#request_token').addClass('disabled');
-				$('#request_token span').removeClass('hide');
-				$('#pincode').removeAttr('disabled');
-
-				$('#get_pincode').removeClass('disabled');
-				$('#get_cridential').removeClass('disabled');
-			},
-
-			completeAccessCredential: function(model, data) {
+			onSuccess: function() {
 				this.$el.find('._save').removeClass('disabled');
+				this.$el.find('.bar-success').css({width: '100%'});
 
-				$('#pincode').attr('disabled', 'disabled');
-				$('#get_cridential').addClass('disabled');
-
-				console.log(model)
+				twitter.success();
 			},
 
-			openAuthorize: function() {
-				var url = 'https://api.twitter.com/oauth/authorize?oauth_token='+ oAuth.get('oauth_token');
-				
-				login = gui.Window.open(url, {
-					width: 500,
-					height: 540,
-					x: win.x - 500,
-					y: win.y,
-				  toolbar: false
-				});
-
-				$('#get_pincode').addClass('disabled');
-				$('#get_pincode span').removeClass('hide');
+			onVerified: function() {
+				this.$el.find('.bar-success').css({width: '40%'});
 			},
 
-			getCridential: function() {
-				oAuth.getPermission($('#pincode').val());
+			onAuthorized: function() {
+				this.$el.find('.bar-success').css({width: '80%'});
 			},
 
 			show: function() {
@@ -83,6 +56,7 @@ define([
 
 			saveHandler: function() {
 				this.trigger('save');
+				twitter.save();
 				this.hide();
 			},
 
