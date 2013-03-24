@@ -71,7 +71,7 @@ define([
 			request.post({ url: url, oauth: oauth }, function (e, r, body) {
 			  var req_token = qs.parse(body);
 			  	
-			  model.trigger('twitter_authrized');
+			  model.trigger('twitter_authorized');
 
 			  createServer4Callback();
 						
@@ -90,6 +90,10 @@ define([
 
 			login: function() {
 				getRequestToken();
+			},
+
+			clear: function() {
+				store.remove('Twitter');
 			},
 
 			success: function() {
