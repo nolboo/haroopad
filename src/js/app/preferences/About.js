@@ -6,15 +6,15 @@ define([
 			el: '#about-tab',
 
 			events: {
-				'click a': 'clickHandler'
+				// 'click a': 'clickHandler'
 			},
 
 			initialize: function() {
 			},
 
 			clickHandler: function(e) {
-				var href = $(e.target).attr('href');
-				shell.openExternal(href);
+				// var href = $(e.target).attr('href');
+				// shell.openExternal(href);
 			}
 		});
 

@@ -5,8 +5,12 @@ define([
 		'preferences/Editor',
 		'preferences/Viewer',
 		'preferences/Helper',
-		'preferences/About'
-	], function(html, HotKey, General, Editor, Viewer, Helper, About) {
+		'preferences/About',
+		'preferences/Twitter'
+	], function(html, HotKey, General, Editor, Viewer, Helper, About, Twitter) {
+
+		var gui = require('nw.gui');
+		var shell = gui.Shell;
 
 		$('#dialogs').append(html);
 		$('.switch').bootstrapSwitch();
@@ -20,4 +24,13 @@ define([
 		var tabViewer = new Viewer();
 		var tabHelper = new Helper();
 		var tabAbout = new About();
+
+		var sectionTwitter = new Twitter();
+
+		$('#dialogs').find('a').click(function(e) {
+			var href = $(e.target).attr('href');
+			shell.openExternal(href);
+				
+			e.preventDefault();
+		});
 });

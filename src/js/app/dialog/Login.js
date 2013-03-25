@@ -6,6 +6,51 @@ define([
 	function(html, HotKey, twitter) {
 		$('#dialogs').append(html);
 
+		var el = $('#twitter-oauth-dialog');
+
+		function message(text) {
+			el.find('#twitter_progress_msg').html(text);
+		}
+
+		function progress(per) {
+			el.find('.bar-info').css({ width: per+'%' });
+		}
+
+		function successHandler() {
+			message('트위터 인증 완료, 인증을 유지하려면 저장 버튼을 눌러주세요.');
+
+			progress(100);
+
+			el.find('._save').removeAttr('disabled');
+			el.find('._clear').removeAttr('disabled');
+			el.find('.progress').removeClass('active');
+			el.find('.progress .bar').removeClass('bar-info').addClass('bar-success');
+		}
+
+		function resetHandler() {
+			message('');
+
+			progress(0);
+				
+			el.find('#request_token').removeAttr('disabled');
+			el.find('._save').attr('disabled');
+			el.find('._clear').attr('disabled');
+			el.find('.progress').addClass('active');
+			el.find('.progress .bar').removeClass('bar-success').addClass('bar-info');
+		}
+
+		function enable() {
+			el.find('#request_token').removeAttr('disabled');
+		}
+
+		function show() {
+			el.modal('show');
+		}
+
+		function hide() {
+			el.modal('hide');
+		}
+
 		var View = Backbone.View.extend({
 			el: '#twitter-oauth-dialog',
 
@@ -17,19 +62,17 @@ define([
 			},
 
 			initialize: function() {
-				var opt = localStorage.getItem('Twitter');
+				HotKey('defmod-ctrl-shift-l', show);
 
-				if(!opt) {
-					HotKey('defmod-ctrl-shift-l', this.show.bind(this));
+				if(!twitter.get('screen_name')) {
+					enable();
 
 					twitter.bind('twitter_success', this.onSuccess, this);	
 					twitter.bind('twitter_verified', this.onVerified, this);	
 					twitter.bind('twitter_authorized', this.onAuthorized, this);	
+				} else {
+					el.find('._clear').removeAttr('disabled');
 				}
-			},
-
-			message: function(text) {
-				this.$el.find('#twitter_progress_msg').html(text);
 			},
 
 			getRequestToken: function() {
@@ -37,60 +80,46 @@ define([
 			},
 
 			onSuccess: function() {
-				this.message('트위터 인증 완료, 인증을 유지하려면 저장 버튼을 눌러주세요.');
-
-				this.$el.find('._save').removeClass('disabled');
-				this.$el.find('._clear').removeClass('disabled');
-				this.$el.find('.bar-info').css({width: '100%'});
-				this.$el.find('.progress').removeClass('active');
-				this.$el.find('.progress .bar').removeClass('bar-info').addClass('bar-success');
+				successHandler();
 
 				twitter.success();
 			},
 
 			onVerified: function() {
-				this.message('트위터 인증 요청');
+				message('트위터 인증 요청');
 
-				this.$el.find('.bar-info').css({width: '80%'});
+				progress(80);
 			},
 
 			onAuthorized: function() {
-				this.message('트위터 인증 시작');
+				message('트위터 인증 시작');
 
-				this.$el.find('#request_token').attr('disabled', 'disabled');
-				this.$el.find('.bar-info').css({width: '40%'});
-			},
-
-			show: function() {
-				this.$el.modal('show');
-			},
-
-			hide: function() {
-				this.$el.modal('hide');
+				el.find('#request_token').attr('disabled', 'disabled');
+				progress(40);
 			},
 
 			saveHandler: function() {
-				this.trigger('save');
+				hide();
+
+				el.find('._save').attr('disabled');
+
 				twitter.save();
-				this.hide();
+				this.trigger('save');
 			},
 
 			clearHandler: function() {
-				this.message('');
+				resetHandler();
 
-				this.$el.find('#request_token').removeAttr('disabled');
-				this.$el.find('._save').addClass('disabled');
-				this.$el.find('._clear').addClass('disabled');
-				this.$el.find('.progress').addClass('active');
-				this.$el.find('.progress .bar').removeClass('bar-success').addClass('bar-info');
-				this.$el.find('.bar-info').css({width: '0'});
-				
 				twitter.clear();
 			},
 
 			cancelHandler: function() {
-				this.hide();
-			}
+				hide();
+			},
+
+			show: show,
+
+			hide: hide
 		});
 
 		return View;

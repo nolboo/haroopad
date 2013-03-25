@@ -5,7 +5,7 @@
   </div> -->
   <div class="modal-body">
     <p><strong class="text-error">Step1: </strong></p>
-    <button id="request_token" class="btn btn-large btn-block btn-primary" type="button">Get Credential <span class="hide">(Greate! Go to Step2)</span></button>
+    <button id="request_token" class="btn btn-large btn-block btn-primary" type="button" disabled>Get Credential <span class="hide">(Greate! Go to Step2)</span></button>
 
     <p style="margin-top: 10px">
       <div class="progress progress-striped active">
@@ -13,11 +13,10 @@
       </div>
       <span id="twitter_progress_msg" class="text-info pull-right" style="margin-top:-20px"></span>
     </p>
-
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn _cancel">Cancel</a>
-    <a href="#" class="btn btn-error _clear disabled">Clear</a>
-    <a href="#" class="btn btn-primary _save disabled">Save</a>
+    <button class="btn _cancel">Cancel</button>
+    <button class="btn btn-error _clear" disabled>Clear</button>
+    <button class="btn btn-primary _save" disabled>Save</button>
   </div>
 </div>

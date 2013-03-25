@@ -51,7 +51,7 @@ define([
 		    var perm_token = qs.parse(body);
 
 			  model.set(perm_token);
-		    model.trigger('twitter_success', perm_token);
+		    model.trigger('success', perm_token);
 			});
 		}
 
@@ -124,9 +124,9 @@ define([
 
 			clear: function() {
 				store.remove('Twitter');
+    		Backbone.Model.prototype.clear.apply(this, arguments);
 
-				this.clear();
-				this.trigger('clear');
+    		this.trigger('clear');
 			},
 
 			success: function() {
