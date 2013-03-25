@@ -28,6 +28,24 @@ define([
 			viewer.setViewStyle(config.viewStyle);
 			viewer.setCodeStyle(config.codeStyle);
 			viewer.update(content);
+
+			viewer.addEventListener('keydown', function(e) {
+
+		    var evt = document.createEvent("Events");
+		    evt.initEvent("keydown", true, true);
+
+		    evt.view = e.view;
+		    evt.altKey = e.altKey;
+		    evt.ctrlKey = e.ctrlKey;
+		    evt.shiftKey = e.shiftKey;
+		    evt.metaKey = e.metaKey;
+		    evt.keyCode = e.keyCode;
+		    evt.charCode = e.charCode;
+
+		    viewer.top.dispatchEvent(evt);
+
+			}, false);
+			
 		});
 
 		/**
