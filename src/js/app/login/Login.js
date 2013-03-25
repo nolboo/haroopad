@@ -3,6 +3,7 @@ define([
 		'keyboard'
 	], 
 	function(html, HotKey) {
+		//Deprecated
 
 		$('#fields').append(html);
 

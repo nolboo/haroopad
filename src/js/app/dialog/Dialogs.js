@@ -1,13 +1,11 @@
 define([
 		'dialog/Save',
-		'dialog/Shortcuts',
-		'dialog/Login'
+		'dialog/Shortcuts'
 	], 
-	function(Save, Shortcuts, Login) {
+	function(Save, Shortcuts) {
 
 		return {
 			save: new Save,
-			shortcuts: new Shortcuts,
-			login: new Login
+			shortcuts: new Shortcuts
 		}
 });

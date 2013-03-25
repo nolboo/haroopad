@@ -4,6 +4,7 @@ define([
 		'dialog/Login.twitter'
 	], 
 	function(html, HotKey, twitter) {
+		//Deprecated
 		$('#dialogs').append(html);
 
 		var el = $('#twitter-oauth-dialog');

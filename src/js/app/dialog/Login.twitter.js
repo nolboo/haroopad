@@ -2,6 +2,7 @@ define([
 		'store'
 	],
 	function(store) {
+		//Deprecated
 		var CONSUMER_KEY = "fP70dzvDVYa7OL8dK3bbQ";
 		var CONSUMER_SECRET = "7hTnvKWOBZ6wj4HfwnGIhlcQhxWbU9hh6Z1zVpFKWs";
 

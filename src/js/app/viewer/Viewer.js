@@ -30,6 +30,26 @@ define([
 			viewer.update(content);
 		});
 
+		/**
+		 * delegate keyboard event bubble to top window
+		 */
+		viewer.addEventListener('keydown', function(e) {
+
+	    var evt = document.createEvent("Events");
+	    evt.initEvent("keydown", true, true);
+
+	    evt.view = e.view;
+	    evt.altKey = e.altKey;
+	    evt.ctrlKey = e.ctrlKey;
+	    evt.shiftKey = e.shiftKey;
+	    evt.metaKey = e.metaKey;
+	    evt.keyCode = e.keyCode;
+	    evt.charCode = e.charCode;
+
+	    viewer.top.dispatchEvent(evt);
+
+		}, false);
+
 		return {
 			init: function(options) {
 				options = options || {};
